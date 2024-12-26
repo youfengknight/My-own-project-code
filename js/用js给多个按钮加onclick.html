@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <script>
+        var btn = document.querySelectorAll('button');
+        for (let i = 0; i < btn.length; i++) {
+            btn[i].onclick = function () {
+                console.log('yes');
+                btn[i].style.backgroundColor = 'pink';//如果在for括号中写的是var i=0;那么这里只能用this，不能用btns[i]，因为在点击时i已经变成了5，所以btns[i]会报错。因为在点击时i已经变成了5，所以btns[i]会报错。但如果写的是let，那么就没问题
+                btn[i].style.border = '1px solid blue';
+                btn[i].style.boxShadow = '1px ';
+            }
+            btn[i].onblur = function () {
+                console.log('ok');
+                btn[i].style.backgroundColor = '';
+                btn[i].style.border = '';
+
+            }
+
+
+
+        }
+
+
+    </script>
+</body>
+
+</html>

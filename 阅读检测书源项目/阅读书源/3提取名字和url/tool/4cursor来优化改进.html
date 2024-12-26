@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSON 文件解析示例</title>
+    <link rel="stylesheet" href="icon.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .file-upload {
+            margin-top: 20px;
+        }
+
+        #fileContent {
+            width: 100%;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+            resize: vertical;
+            margin-top: 20px;
+            background-color: #ffffff;
+            /* 设置背景色 */
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+            /* 保留文本格式 */
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-color: var(--col_line01);
+            width: 100%
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        #fileContent1 {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            resize: vertical;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+
+
+    <div id="help-icon">?</div>
+    <script src="icon.js"></script>
+
+    <h2>请粘贴书源：</h2>
+    <textarea id="myTextarea" placeholder="在这里粘贴..."></textarea>
+    <br>
+    <button id="submitButton" disabled>提交</button>
+
+    <div class="file-upload">
+        <h2>上传文件：</h2>
+        <input type="file" id="fileInput" accept=".json, .txt">
+        <button id="uploadButton" disabled>开始分析</button>
+    </div>
+
+    <div id="fileContentContainer" style="display: none;">
+        <h2>书源名称和url：</h2>
+        <div id="fileContent"></div>
+        <textarea id="fileContent" readonly></textarea>
+    </div>
+
+    <script>
+        // 获取元素
+        const textarea = document.getElementById('myTextarea');
+        const submitButton = document.getElementById('submitButton');
+        const fileInput = document.getElementById('fileInput');
+        const uploadButton = document.getElementById('uploadButton');
+        const fileContentContainer = document.getElementById('fileContentContainer');
+        const fileContent = document.getElementById('fileContent');
+        const fileContent1 = document.getElementById('fileContent');
+
+        // 监听输入事件
+        textarea.addEventListener('input', function () {
+            if (textarea.value.trim() !== "") {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        });
+
+        // 监听文件选择事件
+        fileInput.addEventListener('change', function () {
+            const file = fileInput.files[0];
+            if (file) {
+                const fileName = file.name;
+                const validExtensions = ['.json', '.txt'];
+                const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+                if (validExtensions.includes(fileExtension)) {
+                    uploadButton.disabled = false;
+                } else {
+                    uploadButton.disabled = true;
+                    alert('只允许上传 .json 或 .txt 格式的文件');
+                    fileInput.value = ''; // 清空文件输入框
+                }
+            } else {
+                uploadButton.disabled = true;
+            }
+        });
+
+        // 提交按钮点击事件
+        submitButton.addEventListener('click', function () {
+            const content = textarea.value.trim();
+            if (content !== "") {
+                alert('提交内容: ' + content);
+                // 在这里添加您需要执行的提交逻辑
+            }
+        });
+
+        // 上传按钮点击事件
+        uploadButton.addEventListener('click', function () {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const fileContentText = e.target.result;
+                        const jsonData = JSON.parse(fileContentText);
+                        if (Array.isArray(jsonData)) {
+                            let htmlContent = '<table>';
+                            htmlContent += '<tr><th>bookSourceName(书源名称)</th><th>bookSourceUrl(书源url)</th></tr>';
+                            jsonData.forEach(item => {
+                                const name = item.bookSourceName || 'N/A';
+                                const url = item.bookSourceUrl || 'N/A';
+                                htmlContent += `<tr><td>${name}</td><td>${url}</td></tr>`;
+                            });
+                            htmlContent += '</table>';
+                            fileContent.innerHTML = htmlContent;
+                            fileContentContainer.style.display = 'block';
+                        } else {
+                            alert('JSON 文件格式不正确: 不是数组格式');
+                        }
+                    } catch (error) {
+                        alert('解析 JSON 文件失败');
+                    }
+                }
+                reader.onerror = function (e) {
+                    alert('读取文件失败');
+                }
+                reader.readAsText(file);
+            }
+        });
+
+        // 上传按钮点击事件
+        uploadButton.addEventListener('click', function () {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const fileContentText = e.target.result;
+                    fileContent1.value = fileContentText;
+                    fileContentContainer.style.display = 'block';
+                }
+                reader.onerror = function (e) {
+                    alert('读取文件失败');
+                }
+                reader.readAsText(file);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

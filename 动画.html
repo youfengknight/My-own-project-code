@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Draggable Circle/Rectangle</title>
+<style>
+#myShape {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    border-radius: 50%;
+    position: absolute; /* Make the element positionable */
+    cursor: pointer;
+    /* Optional: Add some margin to the element */
+    margin: 20px;
+}
+</style>
+</head>
+<body>
+
+<div id="myShape"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    var offsetX, offsetY, isDragging = false;
+
+    $('#myShape').mousedown(function(e) {
+        // Record the offset when mouse button is pressed
+        console.log("yes");
+        offsetX = e.pageX - $(this).offset().left;
+        offsetY = e.pageY - $(this).offset().top;
+        isDragging = true;
+    });
+
+    $(document).mousemove(function(e) {
+        if (isDragging) {
+            // Update the position of the element
+            var newX = e.pageX - offsetX;
+            var newY = e.pageY - offsetY;
+            $(this).css({
+                'left': newX,
+                'top': newY
+            });
+        }
+    });
+
+    $(document).mouseup(function() {
+        // Stop dragging
+        isDragging = false;
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" name="" id="message">
+    <button class="b2">发送短信</button>
+    <script>
+        var mes = document.querySelector('#message');
+        var b2 = document.querySelector('.b2');
+        var num = 5;
+        //var tim1 = null;//最好在这时候就给个值，不给值就是undefined，容易出问题。null是一个空对象，而setInterval正好也是对象
+        var text = mes.value;
+        b2.addEventListener("click", () => {
+            var tim1 = setInterval(function () {
+                if (num == 0) {
+
+                    clearInterval(tim1);
+                    b2.disabled = false;
+                    b2.innerHTML = "发送";
+                    num = 5;
+
+                    // alert("发送成功！请等待5s之后再次点击！");
+                } else {
+
+                    b2.disabled = true;
+                    console.log("还剩" + parseInt(num) + "秒");
+                    b2.innerHTML = "还剩" + parseInt(num) + "秒";
+                }
+            }, 1000);
+        });
+
+    </script>
+</body>
+
+</html>

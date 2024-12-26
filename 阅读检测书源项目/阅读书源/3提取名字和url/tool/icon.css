@@ -1,0 +1,27 @@
+#help-icon {
+    position: absolute;
+    top: 20px;
+    /* 距离顶部的距离 */
+    right: 50px;
+    /* 距离右侧的距离 */
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+}
+
+#help-icon:hover::after,
+#help-icon.active::after {
+    content: "有两种使用方式，一种是手动复制然后粘贴。一种是上传本地文件。";
+    display: block;
+    position: absolute;
+    top: 100%;
+    /* 提示框位于图标下方 */
+    right: 50%;
+    transform: translateX(-50%);
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+}

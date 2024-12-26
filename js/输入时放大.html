@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .con {
+            display: none;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="search">
+        <div class="con">123</div>
+        <input type="text" name="" id="inp">
+    </div>
+    <script>
+        var input = document.querySelector("#inp");
+        var con = document.querySelector(".con");
+        con.style.display = "none";
+        input.addEventListener("keyup", function () {
+            console.log("start！！！");
+            if (this.value == "") {
+                con.style.display = "none";
+            } else {
+                con.style.display = "block";
+                con.innerHTML = this.value;
+                console.log("else运行了");
+            }
+
+        })
+        input.addEventListener("blur", function () {
+            con.style.display = "none";
+
+        })
+
+        input.addEventListener("focus", function () {
+            if (this.value !== "") {
+                con.style.display = "block";
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>

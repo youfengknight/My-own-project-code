@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            /* background-image: url(images/酷探00界_202728_22066.jpg); */
+            background-image: url(images/彩色黄昏壁纸\ -\ 副本.jpg);
+            background-size: 1500px;
+        }
+
+        .imgs {
+            position: relative;
+            margin: 120px auto;
+            width: 700px;
+            height: 150px;
+
+        }
+
+        img {
+            /* position: absolute; */
+            border: 2px solid rgb(168, 168, 168);
+            display: inline;
+            width: 150px;
+            float: left;
+
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="imgs">
+        <img src="images/167641.webp" alt="">
+        <img src="images/wallhaven-vqqw9m.webp" alt="">
+        <img src="images/锁屏界面图片4.jpg" alt="">
+        <img src="images/彩色黄昏壁纸 - 副本.jpg" alt="">
+    </div>
+    <script>
+        var ims = document.querySelector('div').querySelectorAll('img');
+
+        for (let i = 0; i < ims.length; i++) {
+            ims[i].onclick = function () {
+                console.log(123);
+                console.log(ims[i].src);
+                document.body.style.backgroundImage = 'url(' + ims[i].src + ')';
+            }
+        }
+    </script>
+</body>
+//
+
+</html>

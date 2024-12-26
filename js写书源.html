@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a.d1 {
+            background-color: antiquewhite;
+        }
+
+        /* a.a1{
+            font-size: larger;
+        } */
+    </style>
+
+</head>
+
+<body>
+
+    <div class="d1">
+        afe
+        <!--
+        <a onclick="location.href='/456/456056/541970.html'" class="d1">ggfrdh</a>
+       -->
+        <a onclick="location.href='/456/456056/541970.html'" class="d1">ggfrdh</a>
+    </div>
+    <script>
+        // var href1 = document.querySelectorAll('a.d1');
+        // var str=href1.href;
+        // var match = str.match(/'.*?'/);
+
+        //  var firstAnchor = document.querySelector('a');
+        //  var str= firstAnchor.onclick;
+        //  //var matc = str.match("g");
+        //  console.log(str);
+        //  console.log(matc);
+        var aElement = document.querySelector('a');
+        var onclickValue = aElement.getAttribute('onclick');
+        console.log("第一：" + onclickValue);
+        var ma = onclickValue.match(/[0-9].*/);
+        // var match=onclickValue.match(/'([^']*)'/);
+        console.log("第二：" + ma)
+        var matc = String(ma).replace(/'/g, '');
+
+        console.log("第三：" + matc);
+       // var nw=match.replace("");
+        //console.log("第三："+nw); 
+/*
+         var firstAnchor = document.querySelector('a');
+        var str = firstAnchor ? firstAnchor.onclick : null; // 使用三元运算符确保str不会是undefined
+        var match = str ? str.match(/'.*?'/) : null; // 只有当str存在时才调用match方法
+        */
+
+
+
+
+
+
+
+
+
+
+
+
+        /*下面是书源
+    <js>
+        var aElement = document.querySelector('a');
+        // var onclickValue = aElement.getAttribute('onclick');
+        // var ma=onclickValue.match(/[0-9].*/);
+        // var newurl = String(ma).replace(/'/g, '');
+        // <js>newurl
+
+    </script>
+
+
+</body>
+
+</html>

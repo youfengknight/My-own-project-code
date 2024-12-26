@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <ul id="eve">
+        <li>一个大西瓜1</li>
+        <li>一个大西瓜2</li>
+        <li>一个大西瓜3</li>
+        <li>一个大西瓜4</li>
+    </ul>
+    <script>
+        var ul = document.querySelector("#eve");
+        var num = 0;
+        var colorprev;
+        console.log(typeof (ul));
+        ul.addEventListener("click", function (e) {
+            colorprev = e.target.getAttribute('data-color');//这样就可以了
+            // colorprev = e.target.style.backgroundColor;
+            if (num == 0) {
+                num = 1;
+                e.target.style.backgroundColor = "pink";
+            } else {
+                num = 0;
+                e.target.style.backgroundColor = colorprev;
+            }
+        })
+
+
+        //下面是用ai写的，不顶用
+        // var ul = document.querySelector("#eve");
+        // var colorprev;
+
+        // ul.addEventListener("click", function (e) {
+        //     if (e.target && e.target.nodeName === "LI") { // Ensure the clicked element is an <li>
+        //         colorprev = e.target.getAttribute('data-color') || e.target.style.backgroundColor;
+        //         if (e.target.style.backgroundColor !== "pink") {
+        //             e.target.style.backgroundColor = "pink";
+        //         } else {
+        //             e.target.style.backgroundColor = colorprev;
+        //         }
+        //         e.target.setAttribute('data-color', e.target.style.backgroundColor); // Store the current color
+        //     }
+        // });
+    </script>
+</body>
+
+</html>

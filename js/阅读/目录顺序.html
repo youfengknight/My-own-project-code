@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="chapter">
+        <a href="10/50/123.html">第1章 我是章节名称</a>
+        <a href="10/50/123.html">第2章 我是章节名称</a>
+        <a href="10/50/123.html">第6章 我是章节名称</a>
+        <a href="10/50/123.html">第4章 我是章节名称</a>
+        <a href="10/50/123.html">第20章 我是章节名称</a>
+        <a href="10/50/123.html">第3章 我是章节名称</a>
+        <a href="10/50/123.html">第7章 我是章节名称</a>
+        <a href="10/50/123.html">第8章 我是章节名称</a>
+        <a href="10/50/123.html">第9章 我是章节名称</a>
+        <a href="10/50/123.html">第10章 我是章节名称</a>
+        <a href="10/50/123.html">第11章 我是章节名称</a>
+        <a href="10/50/123.html">第12章 我是章节名称</a>
+        <a href="10/50/123.html">第13章 我是章节名称</a>
+        <a href="10/50/123.html">第14章 我是章节名称</a>
+        <a href="10/50/123.html">第15章 我是章节名称</a>
+        <a href="10/50/123.html">第19章 我是章节名称</a>
+        <a href="10/50/123.html">第17章 我是章节名称</a>
+        <a href="10/50/123.html">第18章 我是章节名称</a>
+        <a href="10/50/123.html">第16章 我是章节名称</a>
+        <a href="10/50/123.html">第5章 我是章节名称</a>
+
+    </div>
+    <div class="chapter"></div>
+
+    <script>
+        let obj = {
+            name: "john",
+            age: 30,
+            author: "aff",
+        }
+        chapter = document.getElementsByClassName('chapter');
+        alist = document.getElementsByTagName('a');
+        children = chapter[0].children;
+        console.log(chapter);
+        console.log(typeof chapter);
+        console.log(children);
+        console.log(typeof children[0]);
+        /*打印所有a*/
+        for (let index = 0; index < children.length; index++) {
+            console.log(children[index]);
+        }
+        /*打印obj对象*/
+        for (const key in obj) {
+            if (obj.hasOwnProperty.call(obj, key)) {
+                const element = obj[key];
+                console.log("这是obj：" + element);
+            }
+        }
+        console.log(JSON.stringify(obj));//打印成了一个字符串，专门用来把对象转成字符串的
+
+        console.log(alist);
+        console.log(alist[0]);//方框里面是0,1,2,等等就是第一个、第二个a标签的所有内容
+        console.log(typeof obj['age']);//必须得带引号,不管是对象里是什么类型，填0,1,2都没用
+        console.log(obj['author']);
+        console.log(obj.age);//想起来了，有两种方法来访问对象
+        console.log(obj);
+        str = String(obj);
+        console.log(str);//String(obj)打印出了个[object Object]，toString(obj)[object Undefined]
+        console.log(typeof JSON.stringify(obj));//String类型
+        console.log(typeof alist[1]);
+        console.log(alist[1].text);//先把alist[1]打印出来，然后看看里面有什么属性，然后再用
+        console.log(alist[1].href);//先把alist[1]打印出来，然后看看里面有什么属性，然后再用
+        /*下面的循环打印不出东西*/
+        // for (const key in alist) {
+        //     if (alist.hasOwnProperty.call(alist, key)) {
+        //         const element = alist[key];
+        //         console.log("这是alist" + element);
+        //     }
+        // }
+        str_alist = JSON.stringify(alist);
+        console.log(str_alist);//打印出来只有序号，里面是空的
+        console.log(alist);//这种方式可以看出是不是有数字索引属性
+        console.log(chapter);//这种方式可以看出是不是有数字索引属性
+        console.log(chapter[0]);
+        console.log(chapter[0].textContent);
+
+
+        console.log("---------分割线-----------");
+        // console.log(JSON.stringify(chapter[1].textContent));
+        // match = JSON.stringify(innerText).match(/第.*章/);
+        console.log(alist.length);//当对象是类数组时可以用Length属性
+        var textlist = [];//相当于result
+        var numlist = [];
+        for (let i = 0; i < alist.length; i++) {
+            match = JSON.stringify(alist[i].text).match(/第(\d+)章/);
+            textlist.push(match);
+            // console.log(numlist[i]);
+
+            numlist[i] = JSON.stringify(textlist[i]).match(/第(\d+)章/)[1];
+            // console.log(numlist[i]);
+            // console.log(numlist);
+        }
+        console.log(numlist);
+        for (let i = 0; i < numlist.length; i++) {
+
+            numlist.sort(function (a, b) {/*用js自带的sort排序来进行正排序和反排序*/
+                return a - b;
+            })
+            console.log(numlist);
+        }
+        var aaaa = [1, 1, 2, 3, 4, 8, 5, 5, 6];
+        for (let i = 0; i < aaaa.length; i++) {
+
+            aaaa.sort(function (a, b) {/*用js自带的sort排序来进行正排序和反排序*/
+                return a - b;
+            })
+            console.log(aaaa);
+        }
+
+        // match = JSON.stringify(alist[0].text).match(/第(\d+)章/);
+        // console.log(match[1]);
+    </script>
+</body>
+
+</html>

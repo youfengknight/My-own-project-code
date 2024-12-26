@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            width: 200px;
+            height: 2000px;
+        }
+
+        li {
+            margin: 5px auto;
+            width: 200px;
+            height: 50px;
+            background-color: pink;
+
+        }
+    </style>
+</head>
+
+<body>
+    <textarea id="message" name="message" value=" ">
+    </textarea>
+    <input type="button" value="确定" id="button">
+    <ul>
+
+
+    </ul>
+
+
+    <script>
+        var btn = document.querySelector('#button');
+        var text = document.querySelector('#message');
+        var li = document.createElement('li');
+        var ul = document.querySelector('ul');
+        let num = 0;
+        text.onclick = function () {
+            text.value = '';
+        }
+        btn.onclick = function () {
+            if (text.value !== '' || text.value == ' ') {
+                console.log(text.value);
+                if (num == 0) {
+                    // var a = confirm('你确定要提交吗？');
+
+                }
+                // if (a) {
+                //     // console.log('提交成功');
+                //     text.value = '';
+                //     num++;
+                // }
+                var li = document.createElement('li');//每次都要创造一个新的li
+                console.log('成功');
+                li.innerHTML = text.value;
+                ul.insertBefore(li, ul.children[0]);
+
+            }
+            else {
+                alert('请输入评论后再提交！');
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

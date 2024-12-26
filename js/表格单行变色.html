@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            /*必须得加这个才能显示出下边框*/
+        }
+
+        tr {
+            border-bottom: 1px solid #000;
+
+            /* 设置底部边框样式 */
+        }
+
+        .tr1 {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <table border="0">
+        <thead>
+            <tr class="tr1">
+                <th>代码</th>
+                <th>名称</th>
+                <td>最新公布净值</td>
+                <td>最新公布净值</td>
+                <td>最新公布净值</td>
+                <td>最新公布净值</td>
+                <td>最新公布净值</td>
+                <td>最新公布净值</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>00001</th>
+                <th>00001</th>
+                <td>0.854</td>
+                <td>3.417</td>
+                <td>0.849</td>
+                <td>+0.589%</td>
+                <td>2024-10-25</td>
+                <td>30.668</td>
+            </tr>
+            <tr>
+                <th>00001
+                </th>
+                <th>00001
+                </th>
+                <td>0.801</td>
+                <td>1.011</td>
+                <td>0.796</td>
+                <td>+0.628%</td>
+                <td>2024-10-25</td>
+                <td>0.882</td>
+            </tr>
+            <tr>
+                <th>00001</th>
+                <th>00001
+                </th>
+                <td>0.785</td>
+                <td>0.995</td>
+                <td>0.781</td>
+                <td>+0.512%</td>
+                <td>2024-10-25</td>
+                <td>0.455</td>
+            </tr>
+            <tr>
+                <th>00001
+                </th>
+                <th>00001
+                </th>
+                <td>1.022</td>
+                <td>1.523</td>
+                <td>1.023</td>
+                <td>-0.029%</td>
+                <td>2024-10-25</td>
+                <td>2.689</td>
+            </tr>
+            <tr>
+                <th>00001
+                </th>
+                <th>00001
+                </th>
+                <td>1.859</td>
+                <td>2.187</td>
+                <td>1.838</td>
+                <td>+1.148%</td>
+                <td>2024-10-25</td>
+                <td>4.458</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var tr = document.querySelectorAll('tr');
+        for (let i = 0; i < tr.length; i++) {
+            tr[i].onmouseover = function () {
+                tr[i].style.backgroundColor = '#E6F3FC';
+                console.log("蓝色");
+            };
+            tr[i].onmouseout = function () {
+                tr[i].style.backgroundColor = 'white';
+                console.log("白色");
+
+            };
+
+        }
+    </script>
+</body>
+
+</html>

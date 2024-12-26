@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="b1">点击</button>
+    <button class="b2">立刻爆炸</button>
+
+    <script>
+        var t = setTimeout(function () {
+            console.log("爆炸！");
+            alert("游戏结束！");
+        }, 2000);
+        var btn1 = document.querySelector(".b1");
+        var btn2 = document.querySelector(".b2");
+        btn1.addEventListener("click", function () {
+            clearTimeout(t);
+            console.log("已经清除！");
+            alert("拆除成功！");
+        })
+        btn2.addEventListener("click", function () {
+            setTimeout(function () {
+                console.log("爆炸！");
+            }, 2000);
+            alert("游戏结束！");
+
+        })
+
+    </script>
+</body>
+
+</html>

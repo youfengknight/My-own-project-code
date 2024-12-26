@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        .message {
+            font-size: 12px;
+            color: #999;
+            background: url(images/注意.png)no-repeat left center;
+            background-size: 18px;
+            /* 小屏幕时缩小图片 */
+            padding-left: 20px;
+        }
+
+        .true {
+            font-size: 12px;
+            color: #00ca2f;
+            background: url(images/yes.png)no-repeat left center;
+            padding-left: 20px;
+        }
+
+        .false {
+            font-size: 12px;
+            color: #f50000;
+            background: url(images/false.png)no-repeat left center;
+            padding-left: 20px;
+        }
+
+        p {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="text" name="" id="dd" value="">
+        <p class="message">请输入6~14位密码</p>
+
+    </div>
+    <script>
+        var text = document.querySelector('input');
+        var message = document.querySelector('p');
+        text.onblur = function () {
+            if (text.value.length > 5 && text.value.length < 14) {
+                // message.className == 'message true';
+                console.log("正确");
+                message.className = 'message true';
+                message.innerHTML = '成功';
+            } else {
+                console.log("错");
+                message.className = 'message false';
+                message.innerHTML = '你输入的位数不对，要求6~14位';
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

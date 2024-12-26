@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        th {
+            background-color: rgb(157, 157, 157);
+        }
+    </style>
+</head>
+
+<body>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th cellpadding="20">科目</th>
+                <th>成绩</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+                <td>行1</td>
+                <td>行1</td>
+                <td>行1</td>
+            </tr> -->
+            <!-- <tr>
+                <td>行2</td>
+                <td>行2</td>
+                <td>行2</td>
+            </tr> -->
+        </tbody>
+    </table>
+    <script>
+        var data1 = [{
+            姓名: "水灏",
+            科目: "JS",
+            成绩: 50,
+        }, {
+            姓名: "邢日桦",
+            科目: "JS",
+            成绩: 90,
+        }, {
+            姓名: "林蕊格",
+            科目: "JS",
+            成绩: 80
+        }, {
+            姓名: "丁山胡",
+            科目: "JS",
+            成绩: 88,
+        }];
+        var tb = document.querySelector('tbody');
+        for (let index = 0; index < data1.length; index++) {
+            var tr = document.createElement('tr');
+            tb.appendChild(tr);
+            for (const k in data1[index]) {//用遍历来得到td数量
+                var td = document.createElement('td');
+                tr.appendChild(td);
+                td.innerHTML = data1[index][k];
+                var td1 = document.createElement('td');
+                // tr.appendChild(td1);
+            }
+            tr.appendChild(td1);
+            td1.innerHTML = '<a href="javascript:;" class="as">删除</a>';
+        }
+        var as = document.querySelectorAll('.as');
+        for (let id = 0; id < as.length; id++) {
+            as[id].onclick = function () {
+                console.log(as[id].parentNode.parentNode);
+                tb.removeChild(this.parentNode.parentNode);
+            }
+
+        }
+
+        as[0].addEventListener('click', cc);
+        function cc() {
+            alert(123);
+            as[0].removeEventListener('click', cc);
+        }
+
+
+        document.getElementsByClassName
+    </script>
+</body>
+
+</html>

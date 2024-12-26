@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var timer=0;
+
+        var num=0;
+
+        function setTime(){
+            if(!timer){
+                document.getElementById("text").value=num;
+                num++;
+                setTimeout("setTime()",1000);
+                    
+            }
+            
+
+        }
+    </script>
+
+<input type="button" value="开始计数！" onclick="setTime()">
+<input type="text" id="text" value="">
+<p>单击按钮，输入框将从0开始一直计数。</p>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    
+    <button onclick="myFunction('af','afg')">点我</button>
+    <!-- console.log("运行"); -->
+     <div id="demo">Hello，boy！</div>
+     <button onclick="get()">第二个函数</button>
+     <button onclick="getElementById('demo').innerHTML=5">现在的时间是?</button>
+     <button onclick="displayDate()">时间是?</button>
+     <script>
+        function myFunction(name,job){
+            alert("Welcome " + name + ", the " + job);
+            console.log("运行");
+            document.write("哈哈~~~");
+    }
+
+        function get(){
+            console.log(document.getElementById('demo'));
+        }
+
+        var div=document.querySelector('div');
+        const Text = `
+          This is
+           a multi-line
+             text.
+`               ;
+        console.log(Text);
+
+        let price = 10;
+        let VAT = 0.25;
+        let total = `Total: ${(price * (1 + VAT)).toFixed(2)}`;
+        console.log(total);
+
+
+        let header = "re";
+        let tags = ["RUNOOB", "GOOGLE", "TAOBAO"];
+        let html = `<h2>${header}</h2><ul>`;
+        for (const x of tags) {
+            html += `<li>${x}</li>`;
+        }
+        html += `</ul>`;
+        document.getElementById("demo").innerHTML = html;
+
+
+    </script>
+    <p>点击以下链接查看结果：</p>
+    <a href="javascript:void(alert('Warning!!!'))">点我!</a>
+
+    <a href="javascript:void(0);">点我没有反应的!</a>
+    <a href="#pos">点我定位到指定位置!</a>
+    <br>
+    ...
+    <br>
+    <p id="pos">尾部定位点</p>
+
+
+</body>
+</html>

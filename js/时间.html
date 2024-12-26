@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hour,
+        .minute,
+        .second {
+            display: inline-block;
+            background-color: black;
+            width: 50px;
+            height: 50px;
+            color: aliceblue;
+            text-align: center;
+            line-height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <span class="hour">1</span>
+    <span class="minute">2</span>
+    <span class="second">3</span>
+
+    <script>
+        // let datew = new Date().getTime();
+        let hour = document.querySelector('.hour');
+        let minute = document.querySelector('.minute');
+        let second = document.querySelector('.second');
+        let inputTime = +new Date('2024-12-10 21:00:00');//用户输入的时间
+        console.log("输入时间" + inputTime);
+        let datew = +new Date();//返回的是当前时间的总的毫秒数
+        console.log("当前时间" + datew);
+        Time();
+        setInterval(Time, 1000);
+        function Time() {
+            var nowTime = +new Date();
+            var times = (nowTime - inputTime) / 1000;
+            console.log("减时间" + times);
+            var h = parseInt(times / 60 / 60 % 24);
+            h = h < 10 ? '0' + h : h; hour.innerHTML = h;
+            var m = parseInt(times / 60 % 60);
+            m = m < 10 ? '0' + m : m; minute.innerText = m;
+            var s = parseInt(times % 60);
+            s = s < 10 ? '0' + s : s;
+            second.innerText = s;
+
+
+        }
+
+    </script>
+</body>
+
+</html>

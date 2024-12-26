@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSON 文件解析示例</title>
+    <link rel="stylesheet" href="icon.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 50px;
+            background-color: #f5f7fa;
+            color: #2c3e50;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            font-size: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
+
+        button {
+            background-color: #4299e1;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #3182ce;
+        }
+
+        button:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        .file-upload {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .action-button {
+            padding: 6px 12px;
+            margin: 0 4px;
+            font-size: 13px;
+            border-radius: 4px;
+        }
+
+        .action-button.edit {
+            background-color: #48bb78;
+        }
+
+        .action-button.edit:hover:not(:disabled) {
+            background-color: #38a169;
+        }
+
+        .action-button.delete {
+            background-color: #f56565;
+        }
+
+        .action-button.delete:hover:not(:disabled) {
+            background-color: #e53e3e;
+        }
+
+        .disabled-button {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .table-header-actions {
+            padding: 12px 15px;
+            background-color: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #fileContentContainer {
+            margin-top: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+
+
+    <div id="help-icon">?</div>
+    <script src="icon.js"></script>
+
+    <h2>请粘贴书源：</h2>
+    <textarea id="myTextarea" placeholder="在这里粘贴..."></textarea>
+    <br>
+    <button id="submitButton" disabled>提交</button>
+
+    <div class="file-upload">
+        <h2>上传文件：</h2>
+        <input type="file" id="fileInput" accept=".json, .txt">
+        <button id="uploadButton" disabled>开始分析</button>
+        <button id="showContentButton" onclick="showFullContent()">显示内容</button>
+    </div>
+
+    <div id="fileContentContainer">
+        <div id="tableContainer"></div>
+        <div id="textareaContainer" style="display: none; margin-top: 20px;">
+            <textarea id="fullContent" readonly style="height: 300px;"></textarea>
+        </div>
+    </div>
+
+    <script>
+        let originalJsonContent = ''; // 存储原始JSON内容
+
+        // 获取元素
+        const textarea = document.getElementById('myTextarea');
+        const submitButton = document.getElementById('submitButton');
+        const fileInput = document.getElementById('fileInput');
+        const uploadButton = document.getElementById('uploadButton');
+        const fileContentContainer = document.getElementById('fileContentContainer');
+        const fileContent = document.getElementById('fileContent');
+        const fileContent1 = document.getElementById('fileContent');
+
+        // 监听输入事件
+        textarea.addEventListener('input', function () {
+            if (textarea.value.trim() !== "") {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        });
+
+        // 监听文件选择事件
+        fileInput.addEventListener('change', function () {
+            const file = fileInput.files[0];
+            if (file) {
+                const fileName = file.name;
+                const validExtensions = ['.json', '.txt'];
+                const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+                if (validExtensions.includes(fileExtension)) {
+                    uploadButton.disabled = false;
+                } else {
+                    uploadButton.disabled = true;
+                    alert('只允许上传 .json 或 .txt 格式的文件');
+                    fileInput.value = ''; // 清空文件输入框
+                }
+            } else {
+                uploadButton.disabled = true;
+            }
+        });
+
+        // 提交按钮点击事件
+        submitButton.addEventListener('click', function () {
+            const content = textarea.value.trim();
+            if (content !== "") {
+                alert('提交内容: ' + content);
+                // 在这里添加您需要执行的提交逻辑
+            }
+        });
+
+        // 修改文件上传处理
+        uploadButton.addEventListener('click', function () {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const fileContentText = e.target.result;
+                        originalJsonContent = fileContentText; // 保存原始内容
+                        const jsonData = JSON.parse(fileContentText);
+                        if (Array.isArray(jsonData)) {
+                            window.jsonData = jsonData;
+                            renderTable(jsonData);
+                        } else {
+                            alert('JSON 文件格式不正确: 不是数组格式');
+                        }
+                    } catch (error) {
+                        alert('解析 JSON 文件失败');
+                    }
+                }
+                reader.readAsText(file);
+            }
+        });
+
+        // 显示完整内容函数
+        function showFullContent() {
+            const textareaContainer = document.getElementById('textareaContainer');
+            const fullContent = document.getElementById('fullContent');
+            textareaContainer.style.display = 'block';
+            fullContent.value = originalJsonContent;
+            textareaContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 修改 toggleRow 函数
+        function toggleRow(index) {
+            const row = document.querySelector(`tr[data-index="${index}"]`);
+            const checkbox = row.querySelector('input[type="checkbox"]');
+            const buttons = row.querySelectorAll('button');
+
+            buttons.forEach(button => {
+                button.disabled = !checkbox.checked;
+                button.classList.toggle('disabled-button', !checkbox.checked);
+            });
+        }
+
+        // 修改 toggleAll 函数
+        function toggleAll() {
+            const selectAllCheckbox = document.getElementById('selectAll');
+            const allCheckboxes = document.querySelectorAll('tr[data-index] input[type="checkbox"]');
+            const allButtons = document.querySelectorAll('tr[data-index] button');
+
+            allCheckboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+
+            allButtons.forEach(button => {
+                button.disabled = !selectAllCheckbox.checked;
+                button.classList.toggle('disabled-button', !selectAllCheckbox.checked);
+            });
+        }
+
+        // 修改 deleteRow 函数
+        function deleteRow(index) {
+            if (confirm('确定要删除这条记录吗？')) {
+                window.jsonData.splice(index, 1);
+                originalJsonContent = JSON.stringify(window.jsonData, null, 2);
+                renderTable(window.jsonData);
+                if (document.getElementById('textareaContainer').style.display === 'block') {
+                    showFullContent();
+                }
+            }
+        }
+
+        // 修改 editRow 函数
+        function editRow(index) {
+            const item = window.jsonData[index];
+            showFullContent();
+
+            // 在文本区域中高亮显示对应的内容
+            const fullContent = document.getElementById('fullContent');
+            const content = fullContent.value;
+
+            // 找到对应的 bookSourceName 和 bookSourceUrl 在文本中的位置
+            const searchText = `"bookSourceName": "${item.bookSourceName}"`;
+            const startPos = content.indexOf(searchText);
+
+            if (startPos !== -1) {
+                // 设置选中范围
+                fullContent.focus();
+                fullContent.setSelectionRange(startPos, startPos + searchText.length);
+
+                // 确保高亮部分可见
+                const lineHeight = parseInt(window.getComputedStyle(fullContent).lineHeight);
+                const numberOfLines = content.substr(0, startPos).split('\n').length;
+                fullContent.scrollTop = (numberOfLines - 1) * lineHeight;
+            }
+        }
+
+        // 渲染表格函数
+        function renderTable(jsonData) {
+            let htmlContent = '<table>';
+            htmlContent += `
+                <tr>
+                    <td colspan="4" class="table-header-actions">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="selectAll" onchange="toggleAll()">
+                            <label for="selectAll">全选</label>
+                        </div>
+                        <button onclick="deleteSelected()" class="action-button delete">删除选中</button>
+                    </td>
+                    <th>书源名称</th>
+                    <th>书源URL</th>
+                    <th>操作</th>
+                </tr>`;
+
+            jsonData.forEach((item, index) => {
+                const name = item.bookSourceName || 'N/A';
+                const url = item.bookSourceUrl || 'N/A';
+                htmlContent += `
+                    <tr data-index="${index}">
+                        <td><input type="checkbox" onchange="toggleRow(${index})"></td>
+                        <td>${name}</td>
+                        <td>${url}</td>
+                        <td>
+                            <button class="action-button edit" onclick="editRow(${index})" disabled>编辑</button>
+                            <button class="action-button delete" onclick="deleteRow(${index})" disabled>删除</button>
+                        </td>
+                    </tr>`;
+            });
+            htmlContent += '</table>';
+            document.getElementById('tableContainer').innerHTML = htmlContent;
+        }
+
+        // 添加一些样式来突出显示选中的文本
+        const style = document.createElement('style');
+        style.textContent = `
+            #fullContent::selection {
+                background: #ffd700;
+                color: #000;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+
+</html>

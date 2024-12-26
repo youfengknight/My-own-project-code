@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: fixed;
+            right: -80px;
+            top: 200px;
+            width: 200px;
+            height: 200px;
+        }
+
+        img {
+            position: absolute;
+            left: 20px;
+            width: 100px;
+        }
+
+        #btn {
+            position: absolute;
+            left: 0px;
+            padding: 0 3px;
+            border: 2px solid red;
+            background-color: rgb(243, 116, 116);
+            display: inline-block;
+            height: 15px;
+            font-style: normal;
+            font-size: 17px;
+            line-height: 15px;
+        }
+
+        #btn:hover {
+            background-color: rgb(241, 0, 0);
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box">
+        <i id="btn">x</i>
+        <img src="images/酷探00界_202728_22066.jpg" alt="">
+    </div>
+    <script>
+        var btn = document.querySelector('#btn');
+        var ii = document.querySelector('img');
+        var div = document.querySelector('div');
+        btn.onclick = function () {
+            ii.style.display = 'none';
+            btn.style.display = 'none';
+            div.style.display = 'none';
+        }
+
+    </script>
+
+</body>
+
+</html>

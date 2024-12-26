@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(240, 240, 240);
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn">关灯</button>
+</body>
+<script>
+    var btn = document.querySelector('.btn');
+    var flag = 0;
+    var body = document.querySelector('body');
+    btn.onclick = function () {
+        console.log('yes');
+        if (flag == 0) {
+            btn.innerText = '开灯';
+            body.style.backgroundColor = 'black';
+            flag = 1;
+        } else {
+            btn.innerText = '关灯';
+            body.style.backgroundColor = 'white';
+            flag = 0;
+        }
+
+    }
+</script>
+
+</html>

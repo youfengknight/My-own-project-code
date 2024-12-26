@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="b1">开始定时器</button>
+    <button class="b2">结束定时器</button>、
+    <script>
+        var b1 = document.querySelector('.b1');
+        var b2 = document.querySelector('.b2');
+        var num = 0;
+        var tim1 = null;//最好在这时候就给个值，不给值就是undefined，容易出问题。null是一个空对象，而setInterval正好也是对象
+        b1.addEventListener("click", () => {
+            if (num == 0 || num > 5) {
+                tim1 = setInterval(function () {
+                    console.log("start！"); num++; console.log("现在是第" + num + "秒");
+                }, 1000);
+
+            } else
+                console.log("已经点击过了！60s之内不能再点击");
+        });
+        b2.addEventListener("click", () => {
+            if (num > 0) {
+                clearInterval(tim1);
+                console.log("stop!!");
+                num--;
+            } else
+                console.log("已经点击过了！");
+        })
+    </script>
+</body>
+
+</html>

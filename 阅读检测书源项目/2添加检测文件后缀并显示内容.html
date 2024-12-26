@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>多行输入框与文件上传示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .file-upload {
+            margin-top: 20px;
+        }
+
+        #fileContent {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            resize: vertical;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>请输入您的内容：</h2>
+    <textarea id="myTextarea" placeholder="在这里输入您的内容..."></textarea>
+    <br>
+    <button id="submitButton" disabled>提交</button>
+
+    <div class="file-upload">
+        <h2>上传文件：</h2>
+        <input type="file" id="fileInput" accept=".json, .txt">
+        <button id="uploadButton" disabled>上传文件</button>
+    </div>
+
+    <div id="fileContentContainer" style="display: none;">
+        <h2>文件内容：</h2>
+        <textarea id="fileContent" readonly></textarea>
+    </div>
+
+    <script>
+        // 获取元素
+        const textarea = document.getElementById('myTextarea');
+        const submitButton = document.getElementById('submitButton');
+        const fileInput = document.getElementById('fileInput');
+        const uploadButton = document.getElementById('uploadButton');
+        const fileContentContainer = document.getElementById('fileContentContainer');
+        const fileContent = document.getElementById('fileContent');
+
+        // 监听输入事件
+        textarea.addEventListener('input', function () {
+            if (textarea.value.trim() !== "") {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        });
+
+        // 监听文件选择事件
+        fileInput.addEventListener('change', function () {
+            const file = fileInput.files[0];
+            if (file) {
+                const fileName = file.name;
+                const validExtensions = ['.json', '.txt'];
+                const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+                if (validExtensions.includes(fileExtension)) {
+                    uploadButton.disabled = false;
+                } else {
+                    uploadButton.disabled = true;
+                    alert('只允许上传 .json 或 .txt 格式的文件');
+                    fileInput.value = ''; // 清空文件输入框
+                }
+            } else {
+                uploadButton.disabled = true;
+            }
+        });
+
+        // 提交按钮点击事件
+        submitButton.addEventListener('click', function () {
+            const content = textarea.value.trim();
+            if (content !== "") {
+                alert('提交内容: ' + content);
+                // 在这里添加您需要执行的提交逻辑
+            }
+        });
+
+        // 上传按钮点击事件
+        uploadButton.addEventListener('click', function () {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const fileContentText = e.target.result;
+                    fileContent.value = fileContentText;
+                    fileContentContainer.style.display = 'block';
+                }
+                reader.onerror = function (e) {
+                    alert('读取文件失败');
+                }
+                reader.readAsText(file);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

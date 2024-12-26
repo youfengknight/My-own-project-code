@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text">
+    <script>
+        document.addEventListener("keyup", (e) => {
+            alert("赛格");
+
+        })
+        var input = document.querySelector("input");
+        document.addEventListener("keydown", (e) => {
+            console.log(e.keyCode);
+            if (e.keyCode == 83)//即s键
+                input.focus();//当前文本框获得焦点
+
+        });
+
+    </script>
+</body>
+
+</html>
